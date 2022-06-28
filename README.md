@@ -1,9 +1,9 @@
 # Pipedrive Export
 
 This project exports data from Pipedrive, using the official Pipedrive API. 
-The special thing on this exporter is that it exports the data related to a Pipeline. You configure the API token and the name of the Pipeline and this script will export all deals, notes and emails which are related to the configured pipeline. 
+The special thing on this exporter is that it exports the data related to a Pipeline. You configure the API token and the name of the Pipeline and this script will export all deals, notes, emails and persons which are related to the configured pipeline. 
 
-## API Tokne 
+## API Token
 
 Get your API token from your Pipedrive account and set it as ENV variable like this: 
 
