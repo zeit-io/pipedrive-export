@@ -8,6 +8,6 @@ Rails.application.load_tasks
 desc "Export pipelines from Pipedrive"
 task :pipe_export do
   p "invoke PipelineExportService"
-  PipelineExportService.export "Z-Mannheim-Region"
+  PipelineExportService.export "PipelineName"
   p "invocation finished"
 end

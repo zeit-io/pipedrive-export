@@ -4,6 +4,10 @@ class PipelineExportService
   def self.export pipe_name = "test"
     url = "https://api.pipedrive.com/v1/pipelines?api_token=#{ENV['TOKEN']}"
     response = HttpService.fetch_response url
+    if response.nil? || response.code.to_i > 201
+      p "ERROR with export. Could not fetch the pipelines!"
+      return nil 
+    end
 
     pipes = JSON.parse response.body
     pipes["data"].each do |pipe|
@@ -30,7 +34,23 @@ class PipelineExportService
       f.write(pipe_detail)
     end
 
+    self.process_pipe_stages pipe_detail
     self.process_pipe_deals pipe_detail
+  end
+
+
+  def self.process_pipe_stages pipe 
+    url = "https://api.pipedrive.com/v1/stages?pipeline_id=#{pipe['data']['id']}&api_token=#{ENV['TOKEN']}"
+    response = HttpService.fetch_response url
+    if response.nil? || response.code.to_i > 201
+      p "ERROR with pipe stages for pipe #{pipe['id']} - #{response.code} - #{response.body}"
+      return nil 
+    end
+
+    stages = JSON.parse response.body
+    File.open("exports/pipe_#{pipe['data']['id']}_stages.json","w") do |f|
+      f.write(stages)
+    end
   end
 
 
