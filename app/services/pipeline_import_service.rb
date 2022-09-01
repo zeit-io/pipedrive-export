@@ -45,15 +45,15 @@ class PipelineImportService
       deal_id    = deal_data['id']
       deals_hash[deal_id] = deal_title
 
-      # stage_name = self.find_stage_name_for( stages_data, deal_data['stage_id'] )
-      # stage_obj = self.fetch_stage_by stage_name, pipe_object['id']
-      # stage_id = stage_obj['id']
+      stage_name = self.find_stage_name_for( stages_data, deal_data['stage_id'] )
+      stage_obj = self.fetch_stage_by stage_name, pipe_object['id']
+      stage_id = stage_obj['id']
 
-      # if self.create_deal( deal_title, pipe_object['id'], stage_id, deal_data['status'] ) == true 
-      #   p "Created deal '#{deal_title}' in stage #{stage_name}"
-      # else 
-      #   p " - Could not create deal '#{deal_title}'"
-      # end
+      if self.create_deal( deal_title, pipe_object['id'], stage_id, deal_data['status'] ) == true 
+        p "Created deal '#{deal_title}' in stage #{stage_name}"
+      else 
+        p " - Could not create deal '#{deal_title}'"
+      end
     end
 
     # Create Notes 
